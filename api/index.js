@@ -54,6 +54,7 @@ function postRequest(user_name){
                               .then((res) => {
                                   Promise.resolve();
                                   //console.log(res);
+                                  console.log(user_name);
                               })
                               .catch((err) => console.log(err));
     console.log("here :: ", response);
