@@ -49,7 +49,7 @@ function postRequest(user_name){
     const response = twitterClient.post("account/update_profile", { name: user_name })
                               .then((res) => {
                                   Promise.resolve();
-                                  console.log(res);
+                                  //console.log(res);
                               })
                               .catch((err) => console.log(err));
     console.log("here :: ", response);
