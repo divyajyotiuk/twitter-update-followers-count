@@ -31,6 +31,7 @@ const name  = 'Divyajyoti'
 module.exports = (req, res) => {
     const { name = 'World' } = req.query
     res.status(200).send(`Hello ${name}!`);
+    console.log(process.env.HELLO);
     twitterClient.get('account/verify_credentials')
              .then((res) => {
                 const followerCount = res.followers_count
