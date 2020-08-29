@@ -40,7 +40,8 @@ module.exports = (req, res) => {
                     return acc + numberEmojiMap[curr];
                 },"");
                 const user_name = `${name}${emoji} |${followersEmoji}`;
-                console.log(user_name);
+                console.log("get req")
+                console.log(followerCount);
                 postRequest(user_name);
              })
              .catch((err) => console.log("line 46", err));
@@ -54,6 +55,7 @@ function postRequest(user_name){
                               .then((res) => {
                                   Promise.resolve();
                                   //console.log(res);
+                                  console.log("post req")
                                   console.log(user_name);
                               })
                               .catch((err) => console.log(err));
