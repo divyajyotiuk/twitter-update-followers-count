@@ -28,7 +28,8 @@ const name  = 'Divyajyoti'
 ,     emoji = '👩‍💻JS'
 ;
 
-twitterClient.get('account/verify_credentials')
+exports.handler = () => {
+    twitterClient.get('account/verify_credentials')
              .then((res) => {
                 const followerCount = res.followers_count
                 ,     countInString = followerCount.toString()
@@ -42,6 +43,7 @@ twitterClient.get('account/verify_credentials')
                 postRequest(user_name);
              })
              .catch((err) => console.log(err));
+}
 
 function postRequest(user_name){
     const response = twitterClient.post("account/update_profile", { name: user_name })
