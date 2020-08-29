@@ -46,18 +46,16 @@ module.exports = (req, res) => {
              })
              .catch((err) => console.log("line 46", err));
 
-             res.status(200).send(`Hello World!`);
-             console.log(process.env.HELLO);
+            res.status(200).send(`Hello World!`);
 };
 
 function postRequest(user_name){
-    const response = twitterClient.post("account/update_profile", { name: user_name })
-                              .then((res) => {
-                                  Promise.resolve();
-                                  //console.log(res);
-                                  console.log("post req")
-                                  console.log(user_name);
-                              })
-                              .catch((err) => console.log(err));
-    console.log("here :: ", response);
+    const response = twitterClient.post("account/update_profile", { name: user_name });
+
+    response.then((res) => {
+        //console.log(res);
+        console.log("post req")
+        console.log(user_name);
+    })
+    .catch((err) => console.log(err));
 }
