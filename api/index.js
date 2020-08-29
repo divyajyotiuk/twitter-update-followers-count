@@ -28,7 +28,7 @@ const name  = 'Divyajyoti'
 ,     emoji = '👩‍💻JS'
 ;
 
-exports.handler = () => {
+module.exports = () => {
     twitterClient.get('account/verify_credentials')
              .then((res) => {
                 const followerCount = res.followers_count
