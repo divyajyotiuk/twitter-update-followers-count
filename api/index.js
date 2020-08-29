@@ -1,4 +1,4 @@
-const env = require('dotenv').config({ path: '.env' });
+const env = require('dotenv').config({ path: '../.env' });
 
 const Twitter = require('twitter-lite');
 
@@ -41,9 +41,8 @@ module.exports = (req, res) => {
                 const user_name = `${name}${emoji} |${followersEmoji}`;
                 console.log(user_name);
                 postRequest(user_name);
-                res.send(user_name);
              })
-             .catch((err) => console.log(err));
+             .catch((err) => console.log("line 46", err));
 };
 
 function postRequest(user_name){
