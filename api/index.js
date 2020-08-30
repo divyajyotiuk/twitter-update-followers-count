@@ -29,33 +29,47 @@ const name  = 'Divyajyoti'
 ;
 
 module.exports = (req, res) => {
-    console.log('here :: ')
+
+    let httpResponse = res;
     twitterClient.get('account/verify_credentials')
-             .then((res) => {
+            .then((res) => {
+
+                if(!res){
+                    httpResponse.status(500).send("Error fetching Twitter Client");
+                }
+
                 const followerCount = res.followers_count
                 ,     countInString = followerCount.toString()
                 ,     splitCount    = countInString.split("")
                 ;
+
                 const followersEmoji = splitCount.reduce((acc, curr) => {
                     return acc + numberEmojiMap[curr];
                 },"");
-                const user_name = `${name}${emoji} |${followersEmoji}`;
-                console.log("get req")
-                console.log(followerCount);
-                postRequest(user_name);
-             })
-             .catch((err) => console.log("line 46", err));
 
-            res.status(200).send(`Hello World!`);
+                const userName = `${name}${emoji} |${followersEmoji}`;
+
+                console.log("\nGET Method")
+                console.log("Followers Count", followerCount);
+
+                return userName;
+            })
+            .then((user_name) => {
+                const response = twitterClient.post("account/update_profile", { name: user_name });
+
+                response.then((res) => {
+
+                    console.log("POST Method")
+                    console.log("Updated name", user_name);
+
+                    if(!res){
+                        httpResponse.status(500).send("Update error");
+                    }else{
+                        httpResponse.status(200).send(user_name);
+                    }
+                })
+                .catch((err) => console.log(err));
+            })
+            .catch((err) => console.log("line 46", err));
+
 };
-
-function postRequest(user_name){
-    const response = twitterClient.post("account/update_profile", { name: user_name });
-
-    response.then((res) => {
-        //console.log(res);
-        console.log("post req")
-        console.log(user_name);
-    })
-    .catch((err) => console.log(err));
-}
